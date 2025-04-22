@@ -16,7 +16,7 @@ print(data)
 ```python
 # Using 'with open'
 
-with open('my_data.txt', "ra") as file_object:	# Notice that you can set more than one mode. I did "ra" for 'read' and 'append'
+with open('my_data.txt', "a+") as file_object:	# Notice that you can set more than one mode. I did "a+" which allows us to append and read data
 	# All of the code written within this 'with open' block 
 	# have access to 'file_object' as if it's an open file.
 	data = file_object.read()
