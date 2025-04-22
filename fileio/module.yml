@@ -8,3 +8,5 @@ challenges:
     name: Append To File
   - id: closingfiles
     name: Closing Files
+  - id: withopen
+    name: With Open
