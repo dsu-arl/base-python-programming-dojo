@@ -18,6 +18,8 @@ modules:
     name: Functions
   - id: fileio
     name: File I/O
+  - id: modulesandlibraries
+    name: Modules and Libraries
   - id: sockets
     name: Sockets
   - id: webscraping

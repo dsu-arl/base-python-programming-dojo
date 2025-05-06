@@ -1,0 +1,51 @@
+#!/usr/bin/python
+import math
+
+def prRed(skk): print("\033[91m {}\033[00m" .format(skk))
+def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
+def prYellow(skk): print("\033[93m {}\033[00m" .format(skk))
+
+print("Write a python program that imports the math library!")
+q1 = False
+q2 = False
+q3 = False
+
+while not q1:
+    print("1. Using the 'factorial' function in the math library, what is the factorial of 8?")
+    ans = input("> ")
+    try:
+        if int(ans.split('.')[0]) == math.factorial(8):
+            q1 = True
+            prGreen("Correct!\n")
+        else:
+            prRed("Not quite, try again!\n")
+    except ValueError:
+        prYellow("That answer is not acceptable, it must be an number.\n")
+
+while not q2:
+    print("2. Using the 'sqrt' function in the math library, what is the square root of 186206058256?")
+    ans = input("> ")
+    try:
+        if int(ans.split('.')[0]) == math.sqrt(186206058256):
+            q2 = True
+            prGreen("Correct!\n")
+        else:
+            prRed("Not quite, try again!\n")
+    except ValueError:
+        prYellow("That answer is not acceptable, it must be a number.\n")
+
+while not q3:
+    print("3. Using the 'pow' function in the math library, what is the 14 to the power of 7?")
+    ans = input("> ")
+    try:
+        if int(ans.split('.')[0]) == math.pow(14, 7):
+            q3 = True
+            prGreen("Correct!\n")
+        else:
+            prRed("Not quite, try again!\n")
+    except ValueError:
+        prYellow("That answer is not acceptable, it must be a number.\n")
+
+print("Here is your flag!")
+with open('/flag', 'r') as fObj:
+    print(fObj.read())
