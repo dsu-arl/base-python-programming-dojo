@@ -6,3 +6,5 @@ challenges:
     name: Extra Import Tricks
   - id: standardlibrary-random
     name: Standard Library - random
+  - id: standardlibrary-os
+    name: Standard Library - os
