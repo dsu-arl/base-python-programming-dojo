@@ -4,3 +4,5 @@ challenges:
     name: Importing
   - id: extraimporttricks
     name: Extra Import Tricks
+  - id: standardlibrary-random
+    name: Standard Library: random
