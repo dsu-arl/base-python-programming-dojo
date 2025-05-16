@@ -1,0 +1,48 @@
+#!/usr/bin/exec-suid --real -- /usr/bin/python -I
+from os.path import exists
+import sys
+
+d1 = False
+d2 = False
+d3 = False
+
+def prRed(skk): print("\033[91m {}\033[00m" .format(skk))
+def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
+def prYellow(skk): print("\033[93m {}\033[00m" .format(skk))
+
+if len(sys.argv) != 2:
+	prRed("Please supply your python file.")
+	exit(0)
+
+if not exists(sys.argv[1]):
+	prRed(f"It appears the file '{sys.argv[1]}' does not exist!")
+	exit(0)
+
+with open(sys.argv[1], 'r') as fObj:
+	lines = fObj.readlines()
+
+for line in lines:
+	if not d1:
+		if 'datetime.now()' in line:
+			d1 = True
+	if not d2:
+		if 'date.today()' in line:
+			d2 = True
+	l = line.replace(" ", "")
+	if not d3:
+		if 'datetime' in l and '1999' in l and ('4' in l or '04' in l) and '14' in l and ('5' in l or '05' in l) and '30' in l:
+			d3 = True
+
+if not d1:
+	prRed("It appears you didn't get the current date and time!")
+	exit(0)
+if not d2:
+	prRed("It appears you didn't get today's date!")
+	exit(0)
+if not d3:
+	prRed("It appears you didn't create the proper 'datetime' object!")
+	exit(0)
+
+prGreen("Here is your flag!")
+with open('/flag', 'r') as fObj:
+    prGreen(fObj.read())
