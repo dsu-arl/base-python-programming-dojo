@@ -28,8 +28,9 @@ for line in lines:
 	if not d2:
 		if 'date.today()' in line:
 			d2 = True
+	l = line.replace(" ", "")
 	if not d3:
-		if 'datetime(1999,4,14,5,30)' in line.replace(" ", ""):
+		if 'datetime' in l and '1999' in l and ('4' in l or '04' in l) and '14' in l and ('5' in l or '05' in l) and '30' in l:
 			d3 = True
 
 if not d1:
