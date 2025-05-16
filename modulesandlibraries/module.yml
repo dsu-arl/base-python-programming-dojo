@@ -8,3 +8,5 @@ challenges:
     name: Standard Library - random
   - id: standardlibrary-os
     name: Standard Library - os
+  - id: standardlibrary-datetime
+    name: Standard Library - datetime
