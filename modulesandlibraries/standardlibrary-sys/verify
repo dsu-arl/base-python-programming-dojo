@@ -26,6 +26,11 @@ for line in lines:
 	if not s1:
 		if 'print' in line and 'sys.argv' in line:
 			s1 = True
+		elif '=' and 'sys.argv' in line:
+			var = line.split('=')[0]
+			for x in lines:
+				if f'print' in x and var in line:
+					s1 = True
 	if not s2:
 		if 'print' in line and 'sys.version' in line:
 			s2 = True
