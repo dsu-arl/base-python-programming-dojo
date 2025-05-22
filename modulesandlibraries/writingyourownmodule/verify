@@ -19,7 +19,7 @@ if not exists(sys.argv[2]):
 	sys.exit(0)
 
 
-sys.path.instert(0, '/home/hacker/')
+sys.path.insert(0, '/home/hacker/')
 
 try:
 	from my_module import Cat, Dog
