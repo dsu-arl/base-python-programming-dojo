@@ -12,3 +12,5 @@ challenges:
     name: Standard Library - datetime
   - id: standardlibrary-sys
     name: Standard Library - sys
+  - id: writingyourownmodule
+    name: Writing Your Own Module
