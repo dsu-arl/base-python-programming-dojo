@@ -82,7 +82,7 @@ s.moor()
 Our main game file is less cluttered because the majority of our code is split into a different module file that we then import. *NOTICE* that our import line: `from game_objects import Pirate, Ship` uses the name of the file as the module name, and then each class is specified. You could also do `import game_objects`, but then you would have to create objects like this: `p = game_objects.Pirate()` & `s = game_objects.Ship(name="S.S. Anselm")`
 
 For this challenge:
-1. Create a python module file named `animals.py`.
+1. Create a python module file named `my_module.py`.
 	- Create a Dog class with 2 functions: `sit` and `bark`. These functions can just print out "sit" and "bark!" respectively. 
 	- Create a Cat class with 2 functions: `knock_stuff_over` and `meow`. These functions can print out "The cat knocked over a \_\_\_\_\_." (you choose) and "meow!" respectively. 
 2. Create a main file called `main.py`. 
