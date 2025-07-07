@@ -23,6 +23,6 @@ Here is your Mad Lib!
 Hello, Carl! Welcome to Taco Bell, where we make Hamburgers.
 ```
 
-In this challenge use printing, user input, and format strings to create a user generated MadLib!
+In this challenge use printing, user input, and format a string to create a user generated MadLib!
 
 Run `verify yourFile.py` to verify your solution!
