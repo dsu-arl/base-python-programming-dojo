@@ -1,0 +1,43 @@
+#!/opt/pwn.college/python
+import sys
+
+sys.path.append('/challenge')
+
+def print_flag():
+    try:
+        with open("/flag", "r") as f:
+            print(f.read())
+    except FileNotFoundError:
+        print("Error: Flag file not found.")
+
+def main():
+
+    # Open their code
+    try:
+        with open(sys.argv[1], 'r') as fObj:
+            code = fObj.readlines()
+    except FileNotFoundError:
+        print(f"File '{sys.argv[1]}' not found!")
+        sys.exit(1)
+
+    # Check for 'inputs'
+    if len([x for x in code if 'input' in x]) < 1:
+        sys.exit(1)
+
+    # Check for 'f string'
+    if len([x for x in code if 'format' in x]) < 1:
+        sys.exit(1)
+
+    # Check for 'prints'
+    if len([x for x in code if 'print' in x]) < 1:
+        sys.exit(1)
+
+    print_flag()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: run <user_script.py>")
+        sys.exit(1)
+
+    main()
