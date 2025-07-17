@@ -8,4 +8,5 @@ challenges:
     name: Geometry
   - id: comparison
     name: Comparison Operators
-
+  - id: knowledgechecki
+    name: Knowledge Check I
