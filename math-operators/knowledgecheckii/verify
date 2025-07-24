@@ -1,0 +1,44 @@
+#!/opt/pwn.college/python
+import sys
+from os.path import exists
+
+def print_flag():
+    try:
+        with open("/flag", "r") as f:
+            print(f.read())
+    except FileNotFoundError:
+        print("Error: Flag file not found.")
+
+def main():
+
+    if not exists(sys.argv[1]):
+        print(f"File '{sys.argv[1]}' not found!")
+        sys.exit(0)
+
+    with open(sys.argv[1], 'r') as fObj:
+        code = fObj.readlines()
+
+    if len([x for x in code if 'input' in x]) != 2:
+        print("It appears you are not getting the proper amount of numbers from the user!") 
+        sys.exit(0)
+
+    if len([x for x in code if '//' in x]) != 1:
+        print("Make sure you're performing your floor division properly!")
+        sys.exit(0)
+
+    if len([x for x in code if '%' in x]) != 1:
+        print("Make sure you're performing your modulus math properly!")
+        sys.exit(0)
+
+    if len([x for x in code if 'print' in x]) < 1:
+        print("Make sure you're printing out the solution!")
+        sys.exit(0)
+
+    print_flag()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: run <user_script.py>")
+        sys.exit(1)
+    main()
