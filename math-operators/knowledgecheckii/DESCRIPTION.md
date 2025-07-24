@@ -1,4 +1,4 @@
-# Knowledge Check I
+# Knowledge Check II
 
 Now that you've gotten to play around with basic math in Python, we are going to test your knowledge!
 
