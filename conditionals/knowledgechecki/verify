@@ -1,0 +1,58 @@
+#!/opt/pwn.college/python
+import sys
+from os.path import exists
+
+def print_flag():
+    try:
+        with open("/flag", "r") as f:
+            print(f.read())
+    except FileNotFoundError:
+        print("Error: Flag file not found.")
+
+def main():
+
+    if not exists(sys.argv[1]):
+        print(f"File '{sys.argv[1]}' not found!")
+        sys.exit(0)
+
+    with open(sys.argv[1], 'r') as fObj:
+        code = fObj.readlines()
+
+    # 3 inputs
+    inputs = len([x for x in code if 'input' in x])
+    if inputs != 3:
+        print("Make sure you are reading in all three inputs needed.")
+        sys.exit(0)
+    # 4 if's
+    mul = len([x for x in code if 'if' in x and '*' in x])
+    add = len([x for x in code if 'if' in x and '+' in x])
+    sub = len([x for x in code if 'if' in x and '-' in x])
+    div = len([x for x in code if 'if' in x and '/' in x])
+    
+    if mul != 1:
+        print("Looks like you're not checking for multiplication!")
+        sys.exit(0)
+    if add != 1:
+        print("Looks like you're not checking for addition!")
+        sys.exit(0)
+    if sub != 1:
+        print("Looks like you're not checking for subtraction!")
+        sys.exit(0)
+    if div != 1:
+        print("Looks like you're not checking for division!")
+        sys.exit(0)
+
+    # 1 print 
+    pr = len([x for x in code if 'print(' in x])
+    if pr < 1:
+        print("It appears you're not printing the answer!")
+        sys.exit(0)
+
+    print_flag()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: run <user_script.py>")
+        sys.exit(1)
+    main()
