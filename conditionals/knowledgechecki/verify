@@ -1,0 +1,59 @@
+#!/opt/pwn.college/python
+import re
+import sys
+import random
+import subprocess
+from os.path import exists
+
+def print_flag():
+    try:
+        with open("/flag", "r") as f:
+            print(f.read())
+    except FileNotFoundError:
+        print("Error: Flag file not found.")
+
+def main():
+
+    if not exists(sys.argv[1]):
+        print(f"File '{sys.argv[1]}' not found!")
+        sys.exit(0)
+
+    # echo -e "5\n-\n4" | python test.py
+    # Test each ting
+    n1 = random.randint(1, 1001)
+    n2 = random.randint(1, 1001)
+    ops = ['+', '-', '*', '/']
+
+    for op in ops:
+        echo = ['echo', '-e', f"{n1}\n{op}\n{n2}"]
+        python = ['python3', sys.argv[1]]
+        echo_res = subprocess.Popen(echo, stdout=subprocess.PIPE)
+        python_res = subprocess.Popen(python, stdin=echo_res.stdout, stdout=subprocess.PIPE)
+
+        echo_res.stdout.close()
+
+        output, error = python_res.communicate()
+        if error != None:
+            print("An error occured! Please check your code!")        
+            sys.exit(0)
+
+        user_ans = output.decode()
+        print(f"DEBUG: {user_ans}")
+        try:
+                user_ans = int(re.findall(r'[-+]?\d*\.\d+|[-+]?\d+', user_ans)[-1])
+        except ValueError:
+                user_ans = float(re.findall(r'[-+]?\d*\.\d+|[-+]?\d+', user_ans)[-1])
+
+        real_ans = f"{n1} {op} {n2}" 
+        if user_ans != eval(real_ans):
+            print(f"Your program failed to calculate '{n1} {op} {n2}'. It gave {user_ans}, when it should've been {eval(real_ans)}.")
+            sys.exit(0)
+
+    print_flag()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: run <user_script.py>")
+        sys.exit(1)
+    main()
