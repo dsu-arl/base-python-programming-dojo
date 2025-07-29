@@ -1,4 +1,5 @@
 #!/opt/pwn.college/python
+import re
 import sys
 import random
 import subprocess
@@ -36,10 +37,13 @@ def main():
             print("An error occured! Please check your code!")        
             sys.exit(0)
 
+        user_ans = output.decode()
+        print(f"DEBUG: {user_ans}")
         try:
-                user_ans = int(output.decode().split(' ')[-1])
+                user_ans = int(re.findall(r'[-+]?\d*\.\d+|[-+]?\d+', user_ans)[-1])
         except ValueError:
-                user_ans = float(output.decode().split(' ')[-1])
+                user_ans = float(re.findall(r'[-+]?\d*\.\d+|[-+]?\d+', user_ans)[-1])
+
         real_ans = f"{n1} {op} {n2}" 
         if user_ans != eval(real_ans):
             print(f"Your program failed to calculate '{n1} {op} {n2}'. It gave {user_ans}, when it should've been {eval(real_ans)}.")
