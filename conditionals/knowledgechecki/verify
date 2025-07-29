@@ -1,5 +1,7 @@
 #!/opt/pwn.college/python
 import sys
+import random
+import subprocess
 from os.path import exists
 
 def print_flag():
@@ -15,38 +17,33 @@ def main():
         print(f"File '{sys.argv[1]}' not found!")
         sys.exit(0)
 
-    with open(sys.argv[1], 'r') as fObj:
-        code = fObj.readlines()
+    # echo -e "5\n-\n4" | python test.py
+    # Test each ting
+    n1 = random.randint(1, 1001)
+    n2 = random.randint(1, 1001)
+    ops = ['+', '-', '*', '/']
 
-    # 3 inputs
-    inputs = len([x for x in code if 'input' in x])
-    if inputs != 3:
-        print("Make sure you are reading in all three inputs needed.")
-        sys.exit(0)
-    # 4 if's
-    mul = len([x for x in code if 'if' in x and '*' in x])
-    add = len([x for x in code if 'if' in x and '+' in x])
-    sub = len([x for x in code if 'if' in x and '-' in x])
-    div = len([x for x in code if 'if' in x and '/' in x])
-    
-    if mul != 1:
-        print("Looks like you're not checking for multiplication!")
-        sys.exit(0)
-    if add != 1:
-        print("Looks like you're not checking for addition!")
-        sys.exit(0)
-    if sub != 1:
-        print("Looks like you're not checking for subtraction!")
-        sys.exit(0)
-    if div != 1:
-        print("Looks like you're not checking for division!")
-        sys.exit(0)
+    for op in ops:
+        echo = ['echo', '-e', f"{n1}\n{op}\n{n2}"]
+        python = ['python3', sys.argv[1]]
+        echo_res = subprocess.Popen(echo, stdout=subprocess.PIPE)
+        python_res = subprocess.Popen(python, stdin=echo_res.stdout, stdout=subprocess.PIPE)
 
-    # 1 print 
-    pr = len([x for x in code if 'print(' in x])
-    if pr < 1:
-        print("It appears you're not printing the answer!")
-        sys.exit(0)
+        echo_res.stdout.close()
+
+        output, error = python_res.communicate()
+        if error != None:
+            print("An error occured! Please check your code!")        
+            sys.exit(0)
+
+        try:
+                user_ans = int(output.decode().split(' ')[-1])
+        except ValueError:
+                user_ans = float(output.decode().split(' ')[-1])
+        real_ans = f"{n1} {op} {n2}" 
+        if user_ans != eval(real_ans):
+            print(f"Your program failed to calculate '{n1} {op} {n2}'. It gave {user_ans}, when it should've been {eval(real_ans)}.")
+            sys.exit(0)
 
     print_flag()
 
