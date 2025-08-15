@@ -1,0 +1,67 @@
+#!/usr/bin/exec-suid --real -- /usr/bin/python -I
+from os.path import exists
+import sys
+
+def prRed(skk): print("\033[91m {}\033[00m" .format(skk))
+def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
+def prYellow(skk): print("\033[93m {}\033[00m" .format(skk))
+
+if len(sys.argv) != 3:
+	prRed("Please supply your python file, AND your module file.")
+	sys.exit(0)
+
+if not exists(sys.argv[1]):
+	prRed(f"It appears the file '{sys.argv[1]}' does not exist!")
+	sys.exit(0)
+
+if not exists(sys.argv[2]):
+	prRed(f"It appears the file '{sys.argv[2]}' does not exist!")
+	sys.exit(0)
+
+
+sys.path.insert(0, '/home/hacker/')
+
+try:
+	from my_module import Cat, Dog
+except ImportError:
+	prRed("Failed to import your module file!")
+	sys.exit(1)
+
+try:
+		c = Cat()
+		d = Dog()
+
+		c.meow()
+		c.knock_stuff_over()
+
+		d.sit()
+		d.bark()
+except Error as e:
+	prRed("Failed to create Dog and Cat object!")
+	sys.exit(1)
+
+
+with open(sys.argv[1], 'r') as fObj:
+	lines = fObj.readlines()
+
+i1 = False
+d1 = False
+c1 = False
+
+for line in lines:
+	if not i1:
+		if 'import' in line and 'my_module' in line:
+			i1 = True
+
+	if not d1:
+		if '=' in line and 'Dog' in line:
+			d1 = True
+
+	if not c1:
+		if '=' in line and 'Cat' in line:
+			c1 = True	
+
+
+prGreen("Here is your flag!")
+with open('/flag', 'r') as fObj:
+    prGreen(fObj.read())

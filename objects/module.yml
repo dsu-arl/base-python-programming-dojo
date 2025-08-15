@@ -10,3 +10,7 @@ challenges:
     name: Knowledge Check I
   - id: subclass
     name: Sub-Class
+  - id: privatedata
+    name: Private Data
+  - id: privatemethods
+    name: Private Methods

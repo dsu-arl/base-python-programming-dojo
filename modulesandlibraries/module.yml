@@ -1,0 +1,16 @@
+name: Modules and Libraries
+challenges:
+  - id: importing
+    name: Importing
+  - id: extraimporttricks
+    name: Extra Import Tricks
+  - id: standardlibrary-random
+    name: Standard Library - random
+  - id: standardlibrary-os
+    name: Standard Library - os
+  - id: standardlibrary-datetime
+    name: Standard Library - datetime
+  - id: standardlibrary-sys
+    name: Standard Library - sys
+  - id: writingyourownmodule
+    name: Writing Your Own Module

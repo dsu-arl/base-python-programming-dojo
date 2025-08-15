@@ -8,4 +8,5 @@ challenges:
     name: Range() Function
   - id: for
     name: For Loops
-
+  - id: knowledgechecki
+    name: Knowledge Check I

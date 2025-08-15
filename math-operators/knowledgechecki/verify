@@ -1,0 +1,44 @@
+#!/opt/pwn.college/python
+import sys
+from os.path import exists
+
+def print_flag():
+    try:
+        with open("/flag", "r") as f:
+            print(f.read())
+    except FileNotFoundError:
+        print("Error: Flag file not found.")
+
+def main():
+
+    if not exists(sys.argv[1]):
+        print(f"File '{sys.argv[1]}' not found!")
+        sys.exit(0)
+
+    with open(sys.argv[1], 'r') as fObj:
+        code = fObj.readlines()
+
+    q = len([x for x in code if 'input' in x])
+    if q < 5:
+        print("You need at least 5 math questions in this test!")
+        sys.exit(0)
+
+    e = len([x for x in code if 'int' in x or 'eval' in x])
+    if e < 5:
+        print("You need to convert all the inputs to integers!")
+        sys.exit(0)
+
+    p = len([x for x in code if 'print' in x])
+    if p != 1:
+        print("Don't forget to print out the grade percent!")
+        sys.exit(0)
+    
+
+    print_flag()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: run <user_script.py>")
+        sys.exit(1)
+    main()

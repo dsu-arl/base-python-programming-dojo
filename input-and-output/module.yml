@@ -10,3 +10,7 @@ challenges:
     name: User Input
   - id: type-casting
     name: Type Casting
+  - id: knowledgechecki
+    name: Knowledge Check I
+  - id: knowledgecheckii
+    name: Knowledge Check II
