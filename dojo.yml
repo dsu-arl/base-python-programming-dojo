@@ -1,11 +1,9 @@
-id: python
-name: Python
-type: roadshow
+id: python-programming
+name: Python Programming
+type: base
 award:
   emoji: 🐍
 modules:
-  #- id: introduction
-  #  name: Introduction
   - id: input-and-output
     name: Input and Output
   - id: math-operators
