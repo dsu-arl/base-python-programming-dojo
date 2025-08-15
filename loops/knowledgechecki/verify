@@ -1,0 +1,59 @@
+#!/opt/pwn.college/python
+import re
+import sys
+from random import randint
+from subprocess import run
+from os.path import exists
+
+def prGreen(s): print("\033[92m {}\033[00m".format(s))
+def prRed(s): print("\033[91m {}\033[00m".format(s))
+def prCyan(s): print("\033[96m {}\033[00m".format(s))
+def prYellow(s): print("\033[93m {}\033[00m".format(s))
+
+def print_flag():
+    try:
+        with open("/flag", "r") as f:
+            prCyan(f.read())
+    except FileNotFoundError:
+        prRed("Error: Flag file not found.")
+
+def hailstone_num(num: int) -> int:
+
+    total = 1
+    while num != 1:
+        if num % 2 == 0:
+            num = num // 2
+        else:
+            num = (3 * num) + 1
+        total += 1
+
+    return total
+
+def main():
+
+    if not exists(sys.argv[1]):
+        print(f"File '{sys.argv[1]}' not found!")
+        sys.exit(0)
+
+    nums = [randint(1, 100) for i in range(0, 5)]
+    for N in nums:
+        result = run(['python3', sys.argv[1]], input=f"{N}\n", capture_output=True, text=True)
+        user_ans = result.stdout
+        user_ans = int(re.findall(r'[-+]?\d*\.\d+|[-+]?\d+', user_ans)[-1])
+        ans = hailstone_num(N)
+
+        if ans != user_ans:
+            prRed(f"Failed to calculate hailstone number for {N}. It gave {user_ans} when it should've been {ans}.")
+            sys.exit(0)
+    
+        prGreen(f"N = {N} -> Hailstone Number = {ans}")
+
+    prYellow("Congratulations! Here is your flag!")
+    print_flag()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: run <user_script.py>")
+        sys.exit(1)
+    main()
