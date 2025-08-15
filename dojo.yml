@@ -1,7 +1,6 @@
 id: python-programming
 name: Python Programming
 type: base
-image: annaopsahl/pc-linux
 award:
   emoji: 🐍
 modules:
