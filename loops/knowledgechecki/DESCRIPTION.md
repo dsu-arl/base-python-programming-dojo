@@ -17,8 +17,11 @@ We repeat this as many times as we need for N to equal 1. The hailstone number i
 If you were to start with N = 8. Then the following sequence would happen:
 
 8 / 2 = 4
+
 4 / 2 = 2
+
 2 / 2 = 1
+
 
 So, including our starting number of 8, the hailstone number would be 4. Since N was 8 -> 4 -> 2 -> 1 (4 numbers in total). 
 
