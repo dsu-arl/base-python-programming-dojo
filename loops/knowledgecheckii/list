@@ -1,0 +1,19 @@
+#!/opt/pwn.college/python
+import random
+
+def main():
+    decoys = ['valdo', 'baldo', 'ualdo', 'haldo', 'maldo']
+
+    wlist = [random.choice(decoys) for x in range(0, 99)]
+    wlist.insert(random.randint(0, 100), 'waldo')
+
+
+    with open('/tmp/.waldo', 'w') as fObj:
+        for x in wlist:
+            fObj.write(f'{x}\n')
+
+    print(wlist)
+    
+
+if __name__ == "__main__":
+    main()
