@@ -1,4 +1,4 @@
-# Knowledge Check I
+# Knowledge Check II
 
 This challenge is going to test your python knowledge up to this point!
 
