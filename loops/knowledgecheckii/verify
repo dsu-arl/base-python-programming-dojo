@@ -1,0 +1,62 @@
+#!/opt/pwn.college/python
+import re
+import sys
+from random import randint
+from subprocess import run
+from os.path import exists
+
+def prGreen(s): print("\033[92m {}\033[00m".format(s))
+def prRed(s): print("\033[91m {}\033[00m".format(s))
+def prCyan(s): print("\033[96m {}\033[00m".format(s))
+def prYellow(s): print("\033[93m {}\033[00m".format(s))
+
+def print_flag():
+    try:
+        with open("/flag", "r") as f:
+            prCyan(f.read())
+    except FileNotFoundError:
+        prRed("Error: Flag file not found.")
+
+
+def solve(l):
+    for x in range(0, len(l)):
+        if l[x] == 'waldo':
+            return x
+    return -1
+
+def main():
+
+    if not exists(sys.argv[1]):
+        print(f"File '{sys.argv[1]}' not found!")
+        sys.exit(0)
+
+    if not exists('/tmp/.waldo'):
+        print("Please generate your list by running '/challenge/list'!")
+        sys.exit(0)
+
+    with open('/tmp/.waldo', 'r') as fObj:
+        wlist = [x.strip() for x in fObj.readlines()]
+
+    ans = solve(wlist)
+    if ans == -1:
+        prRed("Failed to get answer!")
+        sys.exit(0)
+
+    result = run(['python3', sys.argv[1]], capture_output=True, text=True)
+    user_ans = result.stdout
+    user_ans = int(re.findall(r'[-+]?\d*\.\d+|[-+]?\d+', user_ans)[-1])
+
+    if user_ans != ans:
+        prRed("That answer doesn't appear to be correct!")
+        sys.exit(0)
+    
+
+    prYellow("Congratulations! Here is your flag!")
+    print_flag()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: verify <user_script.py>")
+        sys.exit(1)
+    main()
