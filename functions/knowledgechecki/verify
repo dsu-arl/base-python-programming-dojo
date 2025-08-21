@@ -47,8 +47,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     try:
-        #USER_FILE = join('/home/hacker', sys.argv[1])
-        USER_FILE = join('', sys.argv[1])
+        USER_FILE = join('/home/hacker', sys.argv[1])
     except IndexError:
         print("Please give me tha name of your python file like so\n")
         print("verify <your_python_file_name_here>")
