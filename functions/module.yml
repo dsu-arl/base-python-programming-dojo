@@ -6,4 +6,5 @@ challenges:
     name: Function Arguments
   - id: return-values
     name: Function Return Values
-
+  - id: knowledgechecki
+    name: Knowledge Check I

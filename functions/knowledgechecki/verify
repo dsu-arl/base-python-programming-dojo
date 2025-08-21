@@ -1,0 +1,67 @@
+#!/opt/pwn.college/python
+import sys
+import importlib.util
+from random import randint
+from os.path import exists, join
+
+def prGreen(s): print("\033[92m {}\033[00m".format(s))
+
+def import_module_by_path(module_path):
+   module_name = "custom_module"
+   spec = importlib.util.spec_from_file_location(module_name, module_path)
+   custom_module = importlib.util.module_from_spec(spec)
+   spec.loader.exec_module(custom_module)
+   return custom_module
+
+def print_flag():
+    try:
+        with open("/flag", "r") as f:
+            print(f.read())
+    except FileNotFoundError:
+        print("Error: Flag file not found.")
+
+def main():
+    num_lists = []
+    for i in range(0, 5):
+        num_lists.append([randint(0, 100) for x in range(0, 10)])
+
+    for l in num_lists:
+        ans = sum(l)
+        try:
+            if ans != user_mod.add_list(l):
+                print("Looks like you didn't add the integers properly.")
+                sys.exit(0)
+        except AttributeError:
+            print("Error: Please make sure your function is named 'add_list'.")
+            sys.exit(1)
+        
+        prGreen(f"{l} -> {ans}")
+
+    print("Congratulations!")
+    print_flag() 
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: verify <user_script.py>")
+        sys.exit(1)
+
+    try:
+        USER_FILE = join('/home/hacker', sys.argv[1])
+    except IndexError:
+        print("Please give me tha name of your python file like so\n")
+        print("verify <your_python_file_name_here>")
+        sys.exit(1)
+
+    if not exists(USER_FILE):
+        print("Error: That file doesn't seem to exist.")
+        sys.exit(1)
+
+    try:
+        user_mod = import_module_by_path(USER_FILE) 
+    except ImportError as e:
+        print(f"Failed to import data from {USER_FILE}.")
+        print(e)
+        sys.exit(1)
+
+    main()
